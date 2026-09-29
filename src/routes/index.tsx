@@ -28,7 +28,7 @@ function Index() {
             <h1 className="mt-7 max-w-[11ch] font-display text-[clamp(2.7rem,5vw,4.75rem)] font-bold leading-[1.06] text-foreground">Clarity for every <span className="brand-text">rupee you protect.</span></h1>
             <p className="mt-6 max-w-[49ch] text-base leading-relaxed text-foreground/75">Insurance, investments, income tax returns and GST—thoughtful guidance for your finances, all in one place.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="ink" size="action"><Link to="/contact">Start a conversation <ArrowUpRight /></Link></Button>
+              <Button asChild variant="ink" size="action"><Link to="/contact" search={{}}>Start a conversation <ArrowUpRight /></Link></Button>
               <Button asChild variant="glass" size="action"><Link to="/services">Explore services <ArrowRight /></Link></Button>
             </div>
             <div className="mt-10 grid max-w-lg grid-cols-3 gap-2.5 sm:gap-3">
@@ -69,7 +69,7 @@ function Index() {
 
     <section className="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
       <div className="brand-gradient relative overflow-hidden rounded-xl px-7 py-12 text-primary-foreground sm:px-14 sm:py-14">
-        <div className="relative max-w-xl"><p className="text-xs font-bold uppercase text-primary-foreground/75">Let's talk</p><h2 className="mt-3 font-display text-3xl font-bold leading-tight sm:text-4xl">Make your next decision with more confidence.</h2><p className="mt-4 text-sm leading-relaxed text-primary-foreground/80 sm:text-base">Whether it is a policy, an investment question or a filing deadline, tell us what is on your mind.</p><div className="mt-7 flex flex-wrap gap-3"><Button asChild variant="light" size="action"><Link to="/contact">Get in touch <ArrowUpRight /></Link></Button><Button asChild variant="glass" size="action" className="border-primary-foreground/30 text-primary-foreground hover:text-foreground"><Link to="/services">See our services</Link></Button></div></div>
+        <div className="relative max-w-xl"><p className="text-xs font-bold uppercase text-primary-foreground/75">Let's talk</p><h2 className="mt-3 font-display text-3xl font-bold leading-tight sm:text-4xl">Make your next decision with more confidence.</h2><p className="mt-4 text-sm leading-relaxed text-primary-foreground/80 sm:text-base">Whether it is a policy, an investment question or a filing deadline, tell us what is on your mind.</p><div className="mt-7 flex flex-wrap gap-3"><Button asChild variant="light" size="action"><Link to="/contact" search={{}}>Get in touch <ArrowUpRight /></Link></Button><Button asChild variant="glass" size="action" className="border-primary-foreground/30 text-primary-foreground hover:text-foreground"><Link to="/services">See our services</Link></Button></div></div>
       </div>
     </section>
   </>;

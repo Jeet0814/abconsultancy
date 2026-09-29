@@ -10,7 +10,7 @@ const serviceOptions = ["Insurance", "Investments", "Income Tax & ITR", "GST Con
 const serviceFromSlug: Record<string, string> = { insurance: "Insurance", investments: "Investments", "income-tax": "Income Tax & ITR", gst: "GST Consultancy" };
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: (search: Record<string, unknown>) => ({ service: typeof search.service === "string" ? search.service : undefined }),
+  validateSearch: (search: Record<string, unknown>) => ({ service: typeof search["service"] === "string" ? search["service"] : undefined }),
   head: () => ({ meta: [
     { title: "Contact | A B Taxway Consultancy" },
     { name: "description", content: "Get in touch with A B Taxway Consultancy about insurance, investment, income tax return or GST services." },
