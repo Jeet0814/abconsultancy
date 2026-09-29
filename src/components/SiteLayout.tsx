@@ -25,20 +25,20 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <nav aria-label="Primary navigation" className="glass-strong mx-auto flex max-w-7xl items-center justify-between gap-5 rounded-xl border border-card/80 px-4 py-3 shadow-sm sm:px-6">
         <Brand />
         <div className="hidden items-center gap-8 md:flex">
-          {links.map((link) => <Link key={link.to} to={link.to} search={link.to === "/contact" ? {} : undefined} className={`text-sm font-medium transition-colors ${path === link.to ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>{link.label}</Link>)}
+          {links.map((link) => <Link key={link.to} to={link.to} className={`text-sm font-medium transition-colors ${path === link.to ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>{link.label}</Link>)}
         </div>
-        <div className="hidden md:block"><Button asChild variant="consult" size="consult"><Link to="/contact" search={{}}>Book a consultation <ArrowUpRight /></Link></Button></div>
+        <div className="hidden md:block"><Button asChild variant="consult" size="consult"><Link to="/contact">Book a consultation <ArrowUpRight /></Link></Button></div>
         <Button variant="ghost" size="icon" className="md:hidden" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button>
       </nav>
       {menuOpen && <div className="glass-strong absolute left-4 right-4 top-full mt-2 rounded-xl border border-card p-3 shadow-lg sm:left-6 sm:right-6 md:hidden">
-        {links.map((link) => <Link key={link.to} to={link.to} search={link.to === "/contact" ? {} : undefined} onClick={() => setMenuOpen(false)} className="block rounded-md px-4 py-3 text-sm font-medium text-foreground hover:bg-secondary">{link.label}</Link>)}
+        {links.map((link) => <Link key={link.to} to={link.to} onClick={() => setMenuOpen(false)} className="block rounded-md px-4 py-3 text-sm font-medium text-foreground hover:bg-secondary">{link.label}</Link>)}
       </div>}
     </header>
     <main id="main">{children}</main>
     <footer className="border-t border-border/70 bg-card/40">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
         <Brand />
-        <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">{links.map(link => <Link key={link.to} to={link.to} search={link.to === "/contact" ? {} : undefined} className="hover:text-primary">{link.label}</Link>)}</nav>
+        <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">{links.map(link => <Link key={link.to} to={link.to} className="hover:text-primary">{link.label}</Link>)}</nav>
         <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} A B Taxway Consultancy</p>
       </div>
     </footer>
