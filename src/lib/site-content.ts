@@ -52,3 +52,13 @@ export const services = [
     ],
   },
 ] as const;
+
+export const contact = {
+  phoneDisplay: "+91 94268 44926",
+  tel: "+919426844926",
+  whatsapp: "919426844926",
+} as const;
+
+export function whatsappLink(text?: string) {
+  return `https://wa.me/${contact.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
+}

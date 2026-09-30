@@ -10,4 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep shared navigation and footer in `SiteLayout`, and business service copy in `site-content` so all public pages stay consistent.
-- The contact form prepares a copyable enquiry locally until verified delivery details or a connected enquiry service are supplied; do not imply it sends messages.
+- Contact form delivers enquiries via a prefilled WhatsApp link (wa.me); testimonials are stored and shown only when approved=true.

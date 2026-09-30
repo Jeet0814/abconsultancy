@@ -1,4 +1,4 @@
 # Roadmap
-- [ ] Contact method + enquiry form delivered to Anilkumarsingh Bhadauria (needs real phone/email)
-- [ ] AI insurance needs advisor (recommend services + documents to prepare)
-- [ ] Testimonials section with client-submitted feedback
+- [x] Contact method + enquiry form delivered via WhatsApp to +91 94268 44926
+- [x] AI insurance needs advisor (recommend services + documents to prepare)
+- [x] Testimonials section with client-submitted feedback (shown after approval)
