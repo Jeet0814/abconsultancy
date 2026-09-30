@@ -1,12 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, Phone, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { contact } from "@/lib/site-content";
 import logo from "@/assets/ab-logo.jpg.asset.json";
 
 const links = [
   { to: "/" as const, label: "Home" },
   { to: "/services" as const, label: "Services" },
+  { to: "/insurance-advisor" as const, label: "Insurance Advisor" },
   { to: "/about" as const, label: "About" },
   { to: "/contact" as const, label: "Contact" },
 ];
@@ -40,6 +42,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
         <Brand />
         <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">{links.map(link => <Link key={link.to} to={link.to} className="hover:text-primary">{link.label}</Link>)}</nav>
+        <a href={`tel:${contact.tel}`} className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary"><Phone size={16} />{contact.phoneDisplay}</a>
         <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} A B Taxway Consultancy</p>
       </div>
     </footer>

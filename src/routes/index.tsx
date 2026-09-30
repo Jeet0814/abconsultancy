@@ -1,3 +1,4 @@
+import { Testimonials } from "@/components/Testimonials";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Check, FileText, ReceiptText, ShieldCheck, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -66,6 +67,8 @@ function Index() {
         </Link>)}
       </div>
     </section>
+
+    <Testimonials />
 
     <section className="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
       <div className="brand-gradient relative overflow-hidden rounded-xl px-7 py-12 text-primary-foreground sm:px-14 sm:py-14">
