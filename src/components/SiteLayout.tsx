@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/ab-logo.jpg.asset.json";
 
 const links = [
   { to: "/" as const, label: "Home" },
@@ -12,7 +13,7 @@ const links = [
 
 function Brand() {
   return <Link to="/" aria-label="A B Taxway Consultancy home" className="flex min-w-0 items-center gap-3">
-    <span className="brand-gradient grid size-10 shrink-0 place-items-center rounded-lg font-display text-sm font-bold text-primary-foreground shadow-md">AB</span>
+    <img src={logo.url} alt="A B Consultancy logo" width={44} height={44} className="size-11 shrink-0 rounded-lg object-cover shadow-md" />
     <span className="min-w-0 leading-tight"><span className="block font-display text-base font-bold text-foreground">A B Taxway</span><span className="block text-[10px] font-semibold uppercase text-muted-foreground">Consultancy</span></span>
   </Link>;
 }
