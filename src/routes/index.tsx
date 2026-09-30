@@ -32,7 +32,7 @@ function Index() {
               <Button asChild variant="glass" size="action"><Link to="/services">Explore services <ArrowRight /></Link></Button>
             </div>
             <div className="mt-10 grid max-w-lg grid-cols-3 gap-2.5 sm:gap-3">
-              {[["4 areas", "One place for your needs"], ["Clear", "Straightforward guidance"], ["Personal", "Your goals come first"]].map(([value, label]) => <div key={value} className="glass-strong min-h-24 rounded-lg border border-card/80 p-3 sm:p-4"><strong className="block font-display text-lg text-brand-deep sm:text-xl">{value}</strong><span className="mt-1 block text-[11px] leading-snug text-muted-foreground sm:text-xs">{label}</span></div>)}
+              {[["Since 2004", "Experience in the field"], ["Clear", "Straightforward guidance"], ["Personal", "Your goals come first"]].map(([value, label]) => <div key={value} className="glass-strong min-h-24 rounded-lg border border-card/80 p-3 sm:p-4"><strong className="block font-display text-lg text-brand-deep sm:text-xl">{value}</strong><span className="mt-1 block text-[11px] leading-snug text-muted-foreground sm:text-xs">{label}</span></div>)}
             </div>
           </div>
           <div className="hidden lg:col-span-5 lg:block">
