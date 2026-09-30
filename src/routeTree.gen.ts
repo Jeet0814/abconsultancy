@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as InsuranceAdvisorRouteImport } from './routes/insurance-advisor'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ApiInsuranceAdviceRouteImport } from './routes/api/insurance-advice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,9 +31,19 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsuranceAdvisorRoute = InsuranceAdvisorRouteImport.update({
+  id: '/insurance-advisor',
+  path: '/insurance-advisor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInsuranceAdviceRoute = ApiInsuranceAdviceRouteImport.update({
+  id: '/api/insurance-advice',
+  path: '/api/insurance-advice',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -39,34 +51,61 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insurance-advisor': typeof InsuranceAdvisorRoute
   '/services': typeof ServicesRoute
+  '/api/insurance-advice': typeof ApiInsuranceAdviceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insurance-advisor': typeof InsuranceAdvisorRoute
   '/services': typeof ServicesRoute
+  '/api/insurance-advice': typeof ApiInsuranceAdviceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insurance-advisor': typeof InsuranceAdvisorRoute
   '/services': typeof ServicesRoute
+  '/api/insurance-advice': typeof ApiInsuranceAdviceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insurance-advisor'
+    | '/services'
+    | '/api/insurance-advice'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/services'
-  id: '__root__' | '/' | '/about' | '/contact' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insurance-advisor'
+    | '/services'
+    | '/api/insurance-advice'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insurance-advisor'
+    | '/services'
+    | '/api/insurance-advice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  InsuranceAdvisorRoute: typeof InsuranceAdvisorRoute
   ServicesRoute: typeof ServicesRoute
+  ApiInsuranceAdviceRoute: typeof ApiInsuranceAdviceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,11 +131,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/insurance-advisor': {
+      id: '/insurance-advisor'
+      path: '/insurance-advisor'
+      fullPath: '/insurance-advisor'
+      preLoaderRoute: typeof InsuranceAdvisorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/insurance-advice': {
+      id: '/api/insurance-advice'
+      path: '/api/insurance-advice'
+      fullPath: '/api/insurance-advice'
+      preLoaderRoute: typeof ApiInsuranceAdviceRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -106,7 +159,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  InsuranceAdvisorRoute: InsuranceAdvisorRoute,
   ServicesRoute: ServicesRoute,
+  ApiInsuranceAdviceRoute: ApiInsuranceAdviceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
