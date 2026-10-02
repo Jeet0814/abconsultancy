@@ -21,6 +21,14 @@ export const partners: Partner[] = [
     badgeClass: "from-amber-500/15 to-yellow-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400",
   },
   {
+    id: "taxway",
+    name: "Taxway",
+    category: "Tax & Accounting",
+    tagline: "Professional Accounting Solutions ®",
+    logoUrl: "/partners/taxway.png",
+    badgeClass: "from-emerald-500/15 to-green-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400",
+  },
+  {
     id: "nj",
     name: "NJ Mutual Fund",
     category: "Mutual Funds & SIP",
@@ -34,7 +42,7 @@ export const partners: Partner[] = [
     category: "InsurTech Advisory",
     tagline: "Multi-Insurer Technology Partner",
     logoUrl: "/partners/turtlemint.png",
-    badgeClass: "from-emerald-500/15 to-teal-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400",
+    badgeClass: "from-teal-500/15 to-emerald-500/10 border-teal-500/30 text-teal-700 dark:text-teal-400",
   },
   {
     id: "hdfc-life",
@@ -43,14 +51,6 @@ export const partners: Partner[] = [
     tagline: "Sar Utha Ke Jiyo • Protection",
     logoUrl: "/partners/hdfc-life.png",
     badgeClass: "from-blue-500/15 to-indigo-500/10 border-blue-500/30 text-blue-700 dark:text-blue-400",
-  },
-  {
-    id: "online-taxway",
-    name: "Online Taxway",
-    category: "ITR & GST Network",
-    tagline: "Tax, Compliance & Advisory Network",
-    logoUrl: "/partners/online-taxway.svg",
-    badgeClass: "from-sky-500/15 to-cyan-500/10 border-sky-500/30 text-sky-700 dark:text-sky-400",
   },
 ];
 
