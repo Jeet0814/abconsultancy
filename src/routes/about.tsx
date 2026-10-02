@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, FileCheck2, MessagesSquare, ScanSearch } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import officeImage from "@/assets/advisory-office.jpg";
+import officeImage from "@/assets/advisory-office.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [

@@ -8,6 +8,13 @@
       "when": 1790765362149,
       "tag": "0000_create_testimonials",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790924759065,
+      "tag": "0001_testimonial_rating",
+      "breakpoints": true
     }
   ]
 }

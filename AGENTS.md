@@ -11,3 +11,4 @@
 
 - Keep shared navigation and footer in `SiteLayout`, and business service copy in `site-content` so all public pages stay consistent.
 - Contact form delivers enquiries via a prefilled WhatsApp link (wa.me); testimonials are stored and shown only when approved=true.
+- Compliance due dates, checklists and FAQs live in `src/lib/site-content.ts` so the owner's yearly updates touch one file.
