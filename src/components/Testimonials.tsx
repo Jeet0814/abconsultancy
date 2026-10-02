@@ -10,39 +10,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Reveal } from "@/components/Reveal";
 
-type Testimonial = { id: string; name: string; service: string | null; message: string; rating: number | null };
+import { initialTestimonials, type TestimonialItem } from "@/config/testimonials";
+
+type Testimonial = TestimonialItem;
 const initials = (n: string) => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]!.toUpperCase()).join("");
 
 function Stars({ value }: { value: number }) {
   return <div className="flex gap-0.5" aria-label={`${value} out of 5 stars`}>{[1, 2, 3, 4, 5].map(i => <Star key={i} size={15} className={i <= value ? "fill-accent text-accent" : "text-border"} />)}</div>;
 }
 
-const defaultTestimonials: Testimonial[] = [
-  {
-    id: "dt-1",
-    name: "Rajesh Sharma",
-    service: "ITR & Tax Planning",
-    message: "Anilkumarsingh ji has been handling our family and business tax returns for years. Zero notices, prompt filing, and crystal-clear guidance every single year.",
-    rating: 5,
-  },
-  {
-    id: "dt-2",
-    name: "Pooja Patel",
-    service: "Mediclaim & Life Insurance",
-    message: "Helped our family pick the exact health cover and term insurance we needed without any pushy sales tactics. Truly grateful for the sincere advice.",
-    rating: 5,
-  },
-  {
-    id: "dt-3",
-    name: "Vikram Chauhan",
-    service: "GST & Business Advisory",
-    message: "Honest, responsive and highly knowledgeable. Setting up our GST compliance and monthly returns was completely seamless. Highly recommended!",
-    rating: 5,
-  },
-];
-
 export function Testimonials() {
-  const [items, setItems] = useState<Testimonial[] | null>(defaultTestimonials);
+  const [items, setItems] = useState<Testimonial[] | null>(initialTestimonials.length > 0 ? initialTestimonials : null);
   const [form, setForm] = useState({ name: "", service: "", message: "", rating: 5 });
   const [hover, setHover] = useState(0);
   const [sending, setSending] = useState(false);
@@ -59,14 +37,14 @@ export function Testimonials() {
             if (data && data.length > 0) {
               setItems(data);
             } else {
-              setItems(defaultTestimonials);
+              setItems(initialTestimonials);
             }
           },
-          () => setItems(defaultTestimonials)
+          () => setItems(initialTestimonials)
         )
-        .catch(() => setItems(defaultTestimonials));
+        .catch(() => setItems(initialTestimonials));
     } catch {
-      setItems(defaultTestimonials);
+      setItems(initialTestimonials);
     }
   }, []);
 

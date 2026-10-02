@@ -7,14 +7,27 @@ import { Reveal } from "@/components/Reveal";
 import { checklists, faqs, keyDates, whatsappLink } from "@/lib/site-content";
 
 export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null); const inView = useInView(ref, { once: true }); const reduce = useReducedMotion();
-  const [n, setN] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-20px" });
+  const reduce = useReducedMotion();
+  const [n, setN] = useState(to);
+  const hasAnimated = useRef(false);
+
   useEffect(() => {
-    if (!inView) return; if (reduce) { setN(to); return; }
-    let raf = 0; const start = performance.now();
-    const tick = (t: number) => { const p = Math.min(1, (t - start) / 1400); setN(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) raf = requestAnimationFrame(tick); };
-    raf = requestAnimationFrame(tick); return () => cancelAnimationFrame(raf);
+    if (!inView || hasAnimated.current || reduce) return;
+    hasAnimated.current = true;
+    let raf = 0;
+    const start = performance.now();
+    setN(0);
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / 1400);
+      setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [inView, to, reduce]);
+
   return <span ref={ref}>{n}{suffix}</span>;
 }
 

@@ -7,6 +7,7 @@ import { QuickTools } from "@/components/QuickTools";
 import { Counter, DatesAndChecklist, Faq, HowItWorks } from "@/components/HomeExtras";
 import { Reveal } from "@/components/Reveal";
 import { contact, services, whatsappLink } from "@/lib/site-content";
+import { credentials } from "@/config/credentials";
 import officeImage from "@/assets/advisory-office.webp";
 
 export const Route = createFileRoute("/")({
@@ -80,10 +81,22 @@ function Index() {
           </motion.div>
         </div>
       </div>
-      <Reveal className="mx-auto mt-6 flex max-w-7xl flex-col items-center gap-4 px-5 sm:flex-row sm:justify-between sm:px-8">
-        <p className="text-sm font-semibold text-muted-foreground">Trusted by families & businesses</p>
-        <div className="flex flex-wrap justify-center gap-3">{[1, 2, 3, 4].map(i => <div key={i} className="flex h-11 w-32 items-center justify-center gap-1.5 rounded-xl border border-dashed border-border bg-card/50 text-[11px] text-muted-foreground font-medium"><BadgeCheck size={14} /> Credential {i}</div>)}</div>
-      </Reveal>
+      {credentials && credentials.length > 0 ? (
+        <Reveal className="mx-auto mt-6 flex max-w-7xl flex-col items-center gap-4 px-5 sm:flex-row sm:justify-between sm:px-8">
+          <p className="text-sm font-semibold text-muted-foreground">Trusted by families & businesses</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {credentials.map((cred, i) => (
+              <div
+                key={cred.name || i}
+                className="flex h-11 items-center justify-center gap-2 rounded-xl border border-card/80 bg-card/60 px-4 text-xs font-semibold text-foreground shadow-sm"
+              >
+                {cred.logo ? <img src={cred.logo} alt={cred.name} className="h-5 w-auto object-contain" /> : <BadgeCheck size={16} className="text-primary" />}
+                <span>{cred.name}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      ) : null}
     </section>
 
     <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">

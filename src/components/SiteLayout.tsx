@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUp, ArrowUpRight, ChevronDown, Menu, MessageCircle, Moon, Phone, Sun, X } from "lucide-react";
+import { ArrowUp, ArrowUpRight, ChevronDown, Mail, MapPin, Menu, MessageCircle, Moon, Phone, Sun, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
@@ -440,14 +440,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <ul className="mt-4 space-y-3 text-sm">
               <li className="space-y-0.5">
                 <span className="block font-semibold text-foreground">{contact.name}</span>
-                <span className="block text-xs text-muted-foreground">{contact.title}</span>
+                <span className="block text-xs text-muted-foreground">{contact.title} • Since 2004</span>
               </li>
               <li>
                 <a
                   href={`tel:${contact.tel}`}
-                  className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-primary"
+                  className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-primary transition-colors"
                 >
-                  <Phone size={16} className="text-primary" />
+                  <Phone size={16} className="text-primary shrink-0" />
                   {contact.phoneDisplay}
                 </a>
               </li>
@@ -456,26 +456,49 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-primary"
+                  className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-primary transition-colors"
                 >
-                  <MessageCircle size={16} className="text-whatsapp" />
+                  <MessageCircle size={16} className="text-whatsapp shrink-0" />
                   Chat on WhatsApp
                 </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="inline-flex items-center gap-2 font-semibold text-foreground hover:text-primary transition-colors"
+                >
+                  <Mail size={16} className="text-primary shrink-0" />
+                  {contact.email}
+                </a>
+              </li>
+              <li className="flex items-start gap-2 text-xs text-muted-foreground pt-1">
+                <MapPin size={15} className="text-primary shrink-0 mt-0.5" />
+                <span>{contact.address.line1}, {contact.address.city}</span>
               </li>
             </ul>
           </div>
         </div>
         <div className="border-t border-border/70">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 text-xs text-muted-foreground sm:px-8 md:flex-row md:items-center md:justify-between">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-6 text-xs text-muted-foreground sm:px-8 md:flex-row md:items-center md:justify-between">
             <p>
               © {new Date().getFullYear()} A B Taxway Consultancy. Insurance is the subject matter of solicitation. Cover and returns are subject to market risks and insurer terms &amp; conditions.
             </p>
-            <button
-              onClick={() => window.scrollTo({ top: 0 })}
-              className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-foreground hover:text-primary cursor-pointer"
-            >
-              <ArrowUp size={14} /> Back to top
-            </button>
+            <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
+              <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
+                Privacy Policy
+              </Link>
+              <span aria-hidden="true">•</span>
+              <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">
+                Terms of Service
+              </Link>
+              <span aria-hidden="true">•</span>
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-foreground hover:text-primary cursor-pointer transition-colors"
+              >
+                <ArrowUp size={14} /> Back to top
+              </button>
+            </div>
           </div>
         </div>
       </footer>

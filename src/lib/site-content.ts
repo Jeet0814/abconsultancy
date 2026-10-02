@@ -66,6 +66,16 @@ export const contact = {
   phoneDisplay: "+91 94268 44926",
   tel: "+919426844926",
   whatsapp: "919426844926",
+  email: "abtaxway@gmail.com",
+  hours: "Monday – Saturday: 10:00 AM – 7:00 PM",
+  address: {
+    title: "A B Taxway Consultancy",
+    line1: "Office No. 12, Commercial Plaza, Main Market",
+    city: "Ahmedabad, Gujarat",
+    pincode: "380001",
+    full: "Office No. 12, Commercial Plaza, Main Market, Ahmedabad, Gujarat 380001, India",
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Ahmedabad+Gujarat+India",
+  },
 } as const;
 
 export function whatsappLink(text?: string) {
@@ -85,9 +95,41 @@ export const keyDates = [
 ] as const;
 
 export const checklists = [
-  { title: "Income Tax Return (ITR)", items: ["PAN and Aadhaar (linked)", "Form 16 / salary slips", "Form 26AS and AIS/TIS", "Bank statements and interest certificates", "Investment proofs (80C, 80D, etc.)", "Home loan interest certificate", "Capital gains statements", "Rent receipts (for HRA)"] },
-  { title: "GST registration", items: ["PAN of business / proprietor", "Aadhaar and photograph", "Proof of business address", "Bank account details / cancelled cheque", "Partnership deed or incorporation certificate", "Authorisation letter (if applicable)"] },
-  { title: "GST return filing", items: ["Sales invoices for the period", "Purchase invoices", "Credit / debit notes", "E-way bills (if applicable)", "Previous return copies", "GSTR-2B reconciliation"] },
+  {
+    title: "Income Tax Return (ITR)",
+    items: [
+      "PAN and Aadhaar (linked)",
+      "Form 16 / salary slips for the financial year",
+      "Form 26AS, Annual Information Statement (AIS) & TIS",
+      "Bank account statements and interest certificates",
+      "Investment & deduction proofs (80C, 80D, 80G, NPS, etc.)",
+      "Home loan interest & principal repayment certificate",
+      "Capital gains statements (shares, mutual funds, property)",
+      "Rent receipts & landlord PAN (for HRA exemption claim)",
+    ],
+  },
+  {
+    title: "GST Registration",
+    items: [
+      "PAN of the business entity / proprietor / partners / directors",
+      "Aadhaar card & passport size photographs of applicants",
+      "Proof of principal place of business (electricity bill, property tax receipt, or rent agreement with NOC)",
+      "Bank account details (cancelled cheque, passbook copy, or bank statement)",
+      "Business registration proof (Partnership deed, Certificate of Incorporation, or MOA/AOA)",
+      "Authorisation letter / Board resolution for authorised signatory",
+    ],
+  },
+  {
+    title: "GST Return Filing (GSTR-1 & GSTR-3B)",
+    items: [
+      "Monthly / quarterly sales invoices (B2B, B2C, exports, nil-rated)",
+      "Purchase invoices, debit notes and credit notes for the period",
+      "GSTR-2B reconciliation for eligible Input Tax Credit (ITC)",
+      "Input Tax Credit (ITC) reversal & reverse charge (RCM) details",
+      "Previous tax period return filing copies & acknowledgement numbers",
+      "E-way bills and delivery challan summaries (where applicable)",
+    ],
+  },
 ] as const;
 
 export const faqs = [
