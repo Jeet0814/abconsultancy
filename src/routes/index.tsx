@@ -50,9 +50,9 @@ function Index() {
         <div aria-hidden className="orb bottom-[5%] right-[10%] size-72 bg-accent/25 [animation-delay:-4s]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:py-20">
           <div className="lg:col-span-7">
-            <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-strong inline-flex items-center gap-2 rounded-full border border-card px-4 py-2 text-xs font-semibold text-brand-deep shadow-sm"><span className="relative flex size-2"><span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60" /><span className="relative size-2 rounded-full bg-primary" /></span> INSURANCE · INVESTMENT · TAX</motion.span>
+            <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-strong inline-flex items-center gap-2 rounded-full border border-card px-4 py-2 text-xs font-bold text-primary dark:text-sky-300 shadow-sm"><span className="relative flex size-2"><span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60" /><span className="relative size-2 rounded-full bg-primary" /></span> INSURANCE · INVESTMENT · TAX</motion.span>
             <Headline />
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 max-w-[49ch] text-base leading-relaxed text-foreground/75">Insurance, investments, income tax returns and GST—thoughtful guidance for your finances, all in one place.</motion.p>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 max-w-[49ch] text-base leading-relaxed text-foreground/90 dark:text-slate-200 font-normal">Insurance, investments, income tax returns and GST—thoughtful guidance for your finances, all in one place.</motion.p>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="gradient" size="action" className="group shine"><Link to="/contact">Start a conversation <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></Link></Button>
               <Button asChild variant="glass" size="action"><Link to="/services">Explore services <ArrowRight /></Link></Button>
@@ -62,7 +62,7 @@ function Index() {
                 { v: <Counter to={years} suffix="+" />, l: "Years of experience, since 2004" },
                 { v: "Clear", l: "Straightforward guidance" },
                 { v: "Personal", l: "Your goals come first" },
-              ].map((s, i) => <motion.div key={s.l} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 + i * 0.1 }} className="glass-strong rounded-2xl border border-card/80 p-4 shadow-sm"><strong className="block font-display text-2xl text-brand-deep">{s.v}</strong><span className="mt-1 block text-xs leading-snug text-muted-foreground">{s.l}</span></motion.div>)}
+              ].map((s, i) => <motion.div key={s.l} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 + i * 0.1 }} className="glass-strong rounded-2xl border border-card/80 p-4 shadow-sm"><strong className="block font-display text-2xl text-primary dark:text-sky-300 font-bold">{s.v}</strong><span className="mt-1 block text-xs leading-snug text-muted-foreground font-medium">{s.l}</span></motion.div>)}
             </div>
           </div>
           <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.6 }} className="lg:col-span-5">
@@ -82,21 +82,21 @@ function Index() {
       </div>
       <Reveal className="mx-auto mt-6 flex max-w-7xl flex-col items-center gap-4 px-5 sm:flex-row sm:justify-between sm:px-8">
         <p className="text-sm font-semibold text-muted-foreground">Trusted by families & businesses</p>
-        <div className="flex flex-wrap justify-center gap-3">{[1, 2, 3, 4].map(i => <div key={i} className="flex h-11 w-32 items-center justify-center gap-1.5 rounded-xl border border-dashed border-border bg-card/50 text-[11px] text-muted-foreground"><BadgeCheck size={14} /> Credential {i}</div>)}</div>
+        <div className="flex flex-wrap justify-center gap-3">{[1, 2, 3, 4].map(i => <div key={i} className="flex h-11 w-32 items-center justify-center gap-1.5 rounded-xl border border-dashed border-border bg-card/50 text-[11px] text-muted-foreground font-medium"><BadgeCheck size={14} /> Credential {i}</div>)}</div>
       </Reveal>
     </section>
 
     <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
       <Reveal className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div><p className="text-xs font-bold uppercase tracking-wider text-primary">What we handle</p><h2 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">Advisory, end to end.</h2></div>
-        <Link to="/services" className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-deep">View all services <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></Link>
+        <Link to="/services" className="group inline-flex items-center gap-2 text-sm font-semibold text-primary dark:text-sky-300">View all services <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></Link>
       </Reveal>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {services.map(({ slug, number, title, short, icon: Icon }, i) => <Reveal key={slug} delay={i * 0.08}>
           <Link to="/services" hash={slug} className="glass-panel glow-border group flex h-full min-h-64 flex-col rounded-3xl border border-card/80 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift">
             <div className="flex items-start justify-between"><span className="grid size-12 place-items-center rounded-2xl bg-secondary text-primary transition-all duration-300 group-hover:rotate-[-6deg] group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground"><Icon size={23} /></span><span className="text-xs font-semibold text-muted-foreground">{number} / 04</span></div>
             <h3 className="mt-7 font-display text-xl font-semibold text-foreground">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{short}</p>
-            <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-brand-deep">Explore <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></span>
+            <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-primary dark:text-sky-300">Explore <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></span>
           </Link>
         </Reveal>)}
       </div>

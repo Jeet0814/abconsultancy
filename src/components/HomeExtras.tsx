@@ -64,11 +64,24 @@ export function DatesAndChecklist() {
 }
 
 export function Faq() {
-  return <section className="mx-auto max-w-4xl px-5 pb-20 sm:px-8">
-    <Reveal className="text-center"><p className="text-xs font-bold uppercase tracking-wider text-primary">FAQ</p><h2 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">Common questions.</h2></Reveal>
-    <Reveal delay={0.1} className="glass-panel mt-8 rounded-3xl border border-card/80 px-6 py-2 sm:px-8">
-      <Accordion type="single" collapsible>
-        {faqs.map((f, i) => <AccordionItem key={f.q} value={String(i)} className={i === faqs.length - 1 ? "border-b-0" : ""}><AccordionTrigger className="text-left font-semibold">{f.q}</AccordionTrigger><AccordionContent className="text-sm leading-relaxed text-muted-foreground">{f.a}</AccordionContent></AccordionItem>)}
+  return <section className="mx-auto max-w-4xl px-5 pb-24 pt-6 sm:px-8">
+    <Reveal className="text-center">
+      <p className="text-xs font-bold uppercase tracking-wider text-primary">FAQ</p>
+      <h2 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">Common questions.</h2>
+      <p className="mt-2 text-sm text-muted-foreground">Clear answers to questions we are asked most often.</p>
+    </Reveal>
+    <Reveal delay={0.1} className="mt-10">
+      <Accordion type="single" collapsible className="divide-y divide-border/60 border-y border-border/60">
+        {faqs.map((f, i) => (
+          <AccordionItem key={f.q} value={String(i)} className="border-b-0 py-1 transition-colors">
+            <AccordionTrigger className="text-left font-display text-base font-semibold text-foreground hover:no-underline hover:text-primary sm:text-lg py-4">
+              {f.q}
+            </AccordionTrigger>
+            <AccordionContent className="text-sm sm:text-base leading-relaxed text-muted-foreground pb-5">
+              {f.a}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
     </Reveal>
   </section>;

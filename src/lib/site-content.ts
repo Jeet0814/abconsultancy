@@ -54,6 +54,8 @@ export const services = [
 ] as const;
 
 export const contact = {
+  name: "Anilkumarsingh Bhadauria",
+  title: "Founder & Financial Advisor",
   phoneDisplay: "+91 94268 44926",
   tel: "+919426844926",
   whatsapp: "919426844926",
