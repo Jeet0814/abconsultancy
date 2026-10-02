@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Testimonials } from "@/components/Testimonials";
 import { QuickTools } from "@/components/QuickTools";
 import { Counter, DatesAndChecklist, Faq, HowItWorks } from "@/components/HomeExtras";
+import { PartnerCarousel } from "@/components/PartnerCarousel";
 import { Reveal } from "@/components/Reveal";
 import { contact, services, whatsappLink } from "@/lib/site-content";
 import { credentials } from "@/config/credentials";
@@ -98,6 +99,8 @@ function Index() {
         </Reveal>
       ) : null}
     </section>
+
+    <PartnerCarousel />
 
     <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
       <Reveal className="mb-8 flex flex-wrap items-end justify-between gap-4">
