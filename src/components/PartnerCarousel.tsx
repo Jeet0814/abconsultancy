@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building2, Shield, TrendingUp, Laptop, Landmark, Sparkles } from "lucide-react";
+import { Sparkles, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 
 export type Partner = {
@@ -7,14 +7,8 @@ export type Partner = {
   name: string;
   category: string;
   tagline: string;
-  badgeColor: string;
-  logo: {
-    text: string;
-    sub: string;
-    bg: string;
-    fg: string;
-    icon: typeof Building2;
-  };
+  logoUrl: string;
+  badgeClass: string;
 };
 
 export const partners: Partner[] = [
@@ -22,103 +16,65 @@ export const partners: Partner[] = [
     id: "lic",
     name: "LIC of India",
     category: "Life & Pension",
-    tagline: "India's Most Trusted Life Insurer",
-    badgeColor: "from-amber-500/20 to-yellow-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400",
-    logo: {
-      text: "LIC",
-      sub: "Life Insurance",
-      bg: "bg-[#003366] dark:bg-[#002244]",
-      fg: "text-[#FFCC00]",
-      icon: Landmark,
-    },
+    tagline: "Life Insurance Corporation of India",
+    logoUrl: "/partners/lic.png",
+    badgeClass: "from-amber-500/15 to-yellow-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400",
   },
   {
     id: "nj",
-    name: "NJ India Invest",
-    category: "Mutual Funds & Wealth",
-    tagline: "Premier Wealth & Distribution Network",
-    badgeColor: "from-blue-500/20 to-indigo-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400",
-    logo: {
-      text: "NJ",
-      sub: "India Invest",
-      bg: "bg-[#1E3A8A] dark:bg-[#172554]",
-      fg: "text-white",
-      icon: TrendingUp,
-    },
+    name: "NJ Mutual Fund",
+    category: "Mutual Funds & SIP",
+    tagline: "NJ India Invest • Built on Rules",
+    logoUrl: "/partners/nj-mutual-fund.png",
+    badgeClass: "from-red-500/15 to-rose-500/10 border-red-500/30 text-red-700 dark:text-red-400",
   },
   {
     id: "turtlemint",
     name: "Turtlemint",
     category: "InsurTech Advisory",
     tagline: "Multi-Insurer Technology Partner",
-    badgeColor: "from-emerald-500/20 to-teal-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400",
-    logo: {
-      text: "TURTLE",
-      sub: "mint",
-      bg: "bg-[#047857] dark:bg-[#064E3B]",
-      fg: "text-[#34D399]",
-      icon: Laptop,
-    },
+    logoUrl: "/partners/turtlemint.png",
+    badgeClass: "from-emerald-500/15 to-teal-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400",
   },
   {
     id: "hdfc-life",
     name: "HDFC Life",
-    category: "Life & Health Cover",
+    category: "Life & Health",
     tagline: "Sar Utha Ke Jiyo • Protection",
-    badgeColor: "from-red-500/20 to-rose-500/10 border-red-500/30 text-red-600 dark:text-red-400",
-    logo: {
-      text: "HDFC",
-      sub: "Life",
-      bg: "bg-[#991B1B] dark:bg-[#7F1D1D]",
-      fg: "text-white",
-      icon: Shield,
-    },
+    logoUrl: "/partners/hdfc-life.png",
+    badgeClass: "from-blue-500/15 to-indigo-500/10 border-blue-500/30 text-blue-700 dark:text-blue-400",
   },
   {
     id: "online-taxway",
     name: "Online Taxway",
     category: "ITR & GST Network",
-    tagline: "Tax, Compliance & Corporate Advisory",
-    badgeColor: "from-sky-500/20 to-cyan-500/10 border-sky-500/30 text-sky-600 dark:text-sky-400",
-    logo: {
-      text: "TAXWAY",
-      sub: "Online",
-      bg: "bg-[#0369A1] dark:bg-[#0C4A6E]",
-      fg: "text-[#38BDF8]",
-      icon: Building2,
-    },
+    tagline: "Tax, Compliance & Advisory Network",
+    logoUrl: "/partners/online-taxway.svg",
+    badgeClass: "from-sky-500/15 to-cyan-500/10 border-sky-500/30 text-sky-700 dark:text-sky-400",
   },
 ];
 
 function PartnerCard({ partner }: { partner: Partner }) {
-  const { logo: L, icon: Icon } = { logo: partner.logo, icon: partner.logo.icon };
-
   return (
-    <div
-      className="group relative flex shrink-0 items-center gap-4 rounded-2xl border border-card/80 bg-card/65 px-5 py-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card/90 hover:shadow-lift select-none"
-    >
-      {/* Brand Emblem */}
-      <div
-        className={`grid size-12 shrink-0 place-items-center rounded-xl ${L.bg} p-1.5 shadow-sm transition-transform duration-300 group-hover:scale-105`}
-      >
-        <div className="flex flex-col items-center justify-center text-center">
-          <span className={`font-display text-[13px] font-black tracking-tight leading-none ${L.fg}`}>
-            {L.text}
-          </span>
-          <span className="text-[8px] font-mono uppercase tracking-wider text-white/80 leading-none mt-0.5">
-            {L.sub}
-          </span>
-        </div>
+    <div className="group relative flex shrink-0 items-center gap-4 rounded-2xl border border-card/80 bg-card/75 px-5 py-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card/95 hover:shadow-lift select-none">
+      {/* Official Brand Logo Box */}
+      <div className="flex h-14 w-36 sm:w-40 shrink-0 items-center justify-center rounded-xl bg-white p-2 shadow-sm ring-1 ring-black/5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+        <img
+          src={partner.logoUrl}
+          alt={`${partner.name} logo`}
+          className="max-h-10 max-w-[92%] object-contain"
+          loading="lazy"
+        />
       </div>
 
-      {/* Details */}
-      <div className="min-w-0 pr-1">
+      {/* Partner Info */}
+      <div className="min-w-0 pr-2">
         <div className="flex items-center gap-2">
           <h3 className="font-display text-sm font-bold text-foreground transition-colors group-hover:text-primary">
             {partner.name}
           </h3>
           <span
-            className={`hidden sm:inline-block rounded-full border px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider ${partner.badgeColor}`}
+            className={`hidden sm:inline-block rounded-full border px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider ${partner.badgeClass}`}
           >
             {partner.category}
           </span>
@@ -132,7 +88,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
 }
 
 export function PartnerCarousel() {
-  // Multiply array for seamless infinite marquee loop
+  // Multiply array for smooth infinite marquee loop
   const marqueeItems = [...partners, ...partners, ...partners];
 
   return (
@@ -155,16 +111,13 @@ export function PartnerCarousel() {
               </div>
             </div>
             <div className="hidden md:flex items-center gap-2 text-xs font-medium text-muted-foreground">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative size-2 rounded-full bg-emerald-500" />
-              </span>
-              Direct tie-ups &amp; tech integrations
+              <ShieldCheck size={16} className="text-emerald-500" />
+              <span>Direct partnerships &amp; authorized advisory</span>
             </div>
           </div>
 
           {/* Marquee Track with Fade Gradient Edges */}
-          <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
             <motion.div
               className="flex gap-4 w-max py-2"
               animate={{
@@ -174,7 +127,7 @@ export function PartnerCarousel() {
                 x: {
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: 22,
+                  duration: 25,
                   ease: "linear",
                 },
               }}
