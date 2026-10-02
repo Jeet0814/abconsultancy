@@ -16,8 +16,8 @@ export const Route = createFileRoute("/api/insurance-advice")({
       POST: async ({ request }) => {
         const parsed = Body.safeParse(await request.json().catch(() => null));
         if (!parsed.success) return Response.json({ error: "Please describe your needs in at least a few words." }, { status: 400 });
-        const apiKey = process.env["LOVABLE_API_KEY"];
-        if (!apiKey) return Response.json({ error: "The advisor is not configured yet." }, { status: 500 });
+        const apiKey = typeof process !== "undefined" && process.env ? process.env["LOVABLE_API_KEY"] : undefined;
+        if (!apiKey) return Response.json({ error: "The advisor is not configured yet. Please contact us directly on WhatsApp or phone." }, { status: 500 });
         try {
           const upstream = await fetch("https://ai.gateway.lovable.dev/v1/responses", {
             method: "POST",
