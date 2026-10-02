@@ -41,7 +41,7 @@ function Brand({ scrolled = false }: { scrolled?: boolean }) {
           CONSULTANCY
         </span>
         <span
-          className="hidden xs:block text-[9px] sm:text-[10px] font-medium tracking-wide text-primary dark:text-sky-300 -mt-0.5"
+          className="block text-[9px] sm:text-[10px] font-medium tracking-wide text-primary dark:text-sky-300"
         >
           Helping Build The Wealthy Life
         </span>

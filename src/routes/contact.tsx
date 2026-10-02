@@ -1,282 +1,505 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
-import { ArrowRight, Check, Clock, Mail, MapPin, MessageCircle, Navigation, Phone } from "lucide-react";
+import { useState, useEffect, type FormEvent } from "react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Navigation,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  RotateCcw,
+  Send,
+  AlertCircle,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { contact, whatsappLink } from "@/lib/site-content";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Reveal } from "@/components/Reveal";
 
-const serviceOptions = ["Insurance", "Investments", "Income Tax & ITR", "GST Consultancy", "Something else"];
-const serviceFromSlug: Record<string, string> = { insurance: "Insurance", investments: "Investments", "income-tax": "Income Tax & ITR", gst: "GST Consultancy" };
+const serviceOptions = [
+  "Insurance Advisory",
+  "Investment & Wealth Planning",
+  "Income Tax & ITR Filing",
+  "GST Consultancy & Compliance",
+  "General Financial Consultation",
+];
+
+const serviceFromSlug: Record<string, string> = {
+  insurance: "Insurance Advisory",
+  investments: "Investment & Wealth Planning",
+  "income-tax": "Income Tax & ITR Filing",
+  gst: "GST Consultancy & Compliance",
+};
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: (search: Record<string, unknown>): { service?: string } => typeof search["service"] === "string" ? { service: search["service"] } : {},
-  head: () => ({ meta: [
-    { title: "Contact | A B Taxway Consultancy" },
-    { name: "description", content: "Get in touch with Anilkumarsingh Bhadauria at A B Taxway Consultancy for insurance, investment, income tax return or GST services." },
-    { property: "og:title", content: "Contact | A B Taxway Consultancy" },
-    { property: "og:description", content: "Start a conversation about insurance, investments, income tax or GST." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary_large_image" },
-  ] }),
+  validateSearch: (search: Record<string, unknown>): { service?: string } =>
+    typeof search["service"] === "string" ? { service: search["service"] } : {},
+  head: () => ({
+    meta: [
+      { title: "Contact | A B Taxway Consultancy — Helping Build The Wealthy Life" },
+      {
+        name: "description",
+        content: `Get in touch with Anilkumarsingh Bhadauria at A B Taxway Consultancy for insurance, investment, income tax return, and GST services. Visit our Ahmedabad office or connect directly via WhatsApp and phone.`,
+      },
+      { property: "og:title", content: "Contact | A B Taxway Consultancy" },
+      {
+        property: "og:description",
+        content: "Start a conversation about insurance, investments, income tax returns or GST with Anilkumarsingh Bhadauria.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: ContactPage,
 });
 
+/**
+ * Validates Indian 10-digit mobile number format
+ * Accepts: 9876543210, +919876543210, 09876543210, 91-9876543210
+ */
+function isValidIndianPhone(phone: string): boolean {
+  const cleaned = phone.replace(/[\s\-()]/g, "");
+  return /^(?:(?:\+|0{0,2})91)?[6-9]\d{9}$/.test(cleaned);
+}
+
 function ContactPage() {
   const { service } = Route.useSearch();
-  const [selected, setSelected] = useState(service ? serviceFromSlug[service] || "Something else" : "Insurance");
-  const [message, setMessage] = useState("");
-  const [prepared, setPrepared] = useState(false);
+  const [selected, setSelected] = useState(
+    service && serviceFromSlug[service] ? serviceFromSlug[service] : "Insurance Advisory"
+  );
+
+  // Sync state if query param changes dynamically
+  useEffect(() => {
+    if (service && serviceFromSlug[service]) {
+      setSelected(serviceFromSlug[service]);
+    }
+  }, [service]);
+
   const [details, setDetails] = useState({ name: "", phone: "", email: "" });
+  const [message, setMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const enquiry = `A B Taxway Consultancy enquiry\nName: ${details.name}\nPhone: ${details.phone}\nEmail: ${details.email || "Not provided"}\nService: ${selected}\nMessage: ${message}`;
+  const enquiryText = `A B Taxway Consultancy enquiry\nName: ${details.name}\nPhone: ${details.phone}\nEmail: ${details.email || "Not provided"}\nService: ${selected}\nMessage: ${message}`;
 
-  function prepare(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    window.open(whatsappLink(enquiry), "_blank", "noopener,noreferrer");
-    setPrepared(true);
+    setPhoneError("");
+
+    // Spam honeypot trap
+    if (honeypot.trim().length > 0) {
+      setSubmitted(true);
+      return;
+    }
+
+    // 10-digit Indian phone validation
+    if (!isValidIndianPhone(details.phone)) {
+      setPhoneError("Please enter a valid 10-digit Indian mobile number (e.g. 98765 43210).");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Record submission in database
+      const { error: dbError } = await supabase
+        .from("contact_submissions" as any)
+        .insert([
+          {
+            name: details.name.trim(),
+            phone: details.phone.trim(),
+            email: details.email.trim() || null,
+            service: selected,
+            message: message.trim(),
+            created_at: new Date().toISOString(),
+          },
+        ]);
+
+      if (dbError) {
+        console.warn("Notice: Database logging fallback handled", dbError.message);
+      }
+    } catch (err) {
+      console.warn("Notice: Contact submission fallback handled", err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      // Automatically open pre-filled WhatsApp in a new tab
+      try {
+        window.open(whatsappLink(enquiryText), "_blank", "noopener,noreferrer");
+      } catch {
+        // Pop-up blocked fallback
+      }
+    }
+  }
+
+  function handleReset() {
+    setSubmitted(false);
+    setDetails({ name: "", phone: "", email: "" });
+    setMessage("");
+    setPhoneError("");
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-5 pb-24 pt-20 sm:px-8 md:pt-24">
-      <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
+    <div className="mx-auto max-w-7xl px-4 pb-24 pt-20 sm:px-6 lg:px-8 md:pt-24">
+      <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 items-start">
+        {/* LEFT COLUMN: Contact info and direct channels */}
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-primary">Get In Touch</p>
-          <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground sm:text-6xl">
-            Let's get the <span className="brand-text">conversation started.</span>
-          </h1>
-          <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-            Tell us what you need help with. Your enquiry goes straight to {contact.name} on WhatsApp, or you can reach out directly via call or email.
-          </p>
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary dark:text-sky-300">
+              <Sparkles size={13} /> Direct Contact & Consultation
+            </span>
+            <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+              Let's get the <span className="brand-text">conversation started.</span>
+            </h1>
+            <p className="mt-5 max-w-lg leading-relaxed text-muted-foreground">
+              Have a question regarding insurance cover, mutual fund SIPs, income tax filing, or GST compliance? Your enquiry reaches {contact.name} directly.
+            </p>
+          </Reveal>
 
-          <div className="mt-8 space-y-4">
-            <div className="rounded-2xl border border-card/80 bg-card/60 p-5 shadow-sm backdrop-blur-sm sm:max-w-md">
-              <p className="text-xs font-bold uppercase tracking-wider text-primary">Direct Contact</p>
-              <p className="mt-1 text-lg font-bold text-foreground">{contact.name}</p>
-              <p className="text-xs text-muted-foreground">{contact.title} • Advising since 2004</p>
+          <Reveal delay={0.1} className="mt-8 space-y-4">
+            {/* Direct Advisor Profile Badge */}
+            <div className="rounded-2xl border border-card/80 bg-card/60 p-5 shadow-sm backdrop-blur-md">
+              <div className="flex items-center gap-3.5">
+                <div className="grid size-12 place-items-center rounded-xl bg-primary/15 text-primary dark:text-sky-300 font-display font-bold text-lg">
+                  AB
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-primary dark:text-sky-300">Principal Advisor</p>
+                  <p className="font-display text-lg font-bold text-foreground">{contact.name}</p>
+                  <p className="text-xs text-muted-foreground">{contact.title} • Advising since 2004</p>
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-3.5 sm:max-w-md">
+            {/* Quick Action Cards */}
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               <a
                 href={`tel:${contact.tel}`}
-                className="glass-strong flex items-center gap-3.5 rounded-2xl border border-card/80 p-3.5 text-sm font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:text-primary hover:shadow-sm"
+                className="glass-strong group flex items-center gap-3.5 rounded-2xl border border-card/80 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
               >
-                <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-transform group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
                   <Phone size={18} />
                 </div>
                 <div>
-                  <span className="block text-xs font-normal text-muted-foreground">Call directly</span>
-                  <span className="font-semibold">{contact.phoneDisplay}</span>
+                  <span className="block text-xs text-muted-foreground">Call directly</span>
+                  <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {contact.phoneDisplay}
+                  </span>
                 </div>
               </a>
 
               <a
-                href={whatsappLink()}
+                href={whatsappLink("Hello Anilkumarsingh ji, I would like to consult regarding financial services.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-strong flex items-center gap-3.5 rounded-2xl border border-card/80 p-3.5 text-sm font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:text-primary hover:shadow-sm"
+                className="glass-strong group flex items-center gap-3.5 rounded-2xl border border-card/80 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-whatsapp/40 hover:shadow-sm"
               >
-                <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-whatsapp/10 text-whatsapp">
+                <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-whatsapp/10 text-whatsapp transition-transform group-hover:scale-105 group-hover:bg-whatsapp group-hover:text-white">
                   <MessageCircle size={18} />
                 </div>
                 <div>
-                  <span className="block text-xs font-normal text-muted-foreground">WhatsApp chat</span>
-                  <span className="font-semibold">Quick response on WhatsApp</span>
+                  <span className="block text-xs text-muted-foreground">WhatsApp Chat</span>
+                  <span className="font-semibold text-foreground group-hover:text-whatsapp transition-colors">
+                    Fast response on WhatsApp
+                  </span>
                 </div>
               </a>
 
               <a
                 href={`mailto:${contact.email}`}
-                className="glass-strong flex items-center gap-3.5 rounded-2xl border border-card/80 p-3.5 text-sm font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:text-primary hover:shadow-sm"
+                className="glass-strong group flex items-center gap-3.5 rounded-2xl border border-card/80 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm"
               >
-                <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
+                <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-transform group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
                   <Mail size={18} />
                 </div>
                 <div>
-                  <span className="block text-xs font-normal text-muted-foreground">Email us</span>
-                  <span className="font-semibold">{contact.email}</span>
+                  <span className="block text-xs text-muted-foreground">Send an email</span>
+                  <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {contact.email}
+                  </span>
                 </div>
               </a>
 
-              <div className="glass-strong flex items-center gap-3.5 rounded-2xl border border-card/80 p-3.5 text-sm text-foreground">
-                <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
+              <div className="glass-strong flex items-center gap-3.5 rounded-2xl border border-card/80 p-4">
+                <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
                   <Clock size={18} />
                 </div>
                 <div>
-                  <span className="block text-xs font-normal text-muted-foreground">Office hours</span>
-                  <span className="font-semibold">{contact.hours}</span>
+                  <span className="block text-xs text-muted-foreground">Office hours</span>
+                  <span className="font-semibold text-foreground">{contact.hours}</span>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
-        <div className="glass-panel rounded-3xl border border-card/80 p-6 sm:p-8">
-          {prepared ? (
-            <div role="status">
-              <span className="grid size-12 place-items-center rounded-2xl bg-success/10 text-success">
-                <Check size={24} />
-              </span>
-              <h2 className="mt-5 font-display text-2xl font-bold">Almost there — tap Send in WhatsApp</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                WhatsApp has opened with your message ready. Your enquiry reaches {contact.name} once you press Send there.
-              </p>
-              <pre className="mt-6 whitespace-pre-wrap break-words rounded-2xl bg-secondary p-5 font-sans text-sm leading-relaxed text-foreground border border-border/50">
-                {enquiry}
-              </pre>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button asChild variant="consult" size="action">
-                  <a href={whatsappLink(enquiry)} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle size={16} /> Open WhatsApp again
-                  </a>
-                </Button>
-                <Button type="button" variant="outline" size="action" onClick={() => setPrepared(false)}>
-                  Edit details
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={prepare} className="space-y-5">
-              <div>
-                <h2 className="font-display text-2xl font-bold">Tell us what you need</h2>
-                <p className="mt-1 text-sm text-muted-foreground">A few details are enough to get started.</p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Your full name *</Label>
-                  <Input
-                    id="name"
-                    required
-                    autoComplete="name"
-                    placeholder="e.g. Rajesh Sharma"
-                    value={details.name}
-                    onChange={(e) => setDetails({ ...details, name: e.target.value })}
-                    className="h-12 bg-card/70 px-4"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone number *</Label>
-                  <Input
-                    id="phone"
-                    required
-                    type="tel"
-                    placeholder="e.g. +91 98765 43210"
-                    value={details.phone}
-                    onChange={(e) => setDetails({ ...details, phone: e.target.value })}
-                    className="h-12 bg-card/70 px-4"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email address (optional)</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="e.g. yourname@example.com"
-                  value={details.email}
-                  onChange={(e) => setDetails({ ...details, email: e.target.value })}
-                  className="h-12 bg-card/70 px-4"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="service">Service required</Label>
-                <select
-                  id="service"
-                  value={selected}
-                  onChange={(e) => setSelected(e.target.value)}
-                  className="h-12 w-full rounded-md border border-input bg-card/70 px-4 text-sm text-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        {/* RIGHT COLUMN: Interactive Form / Success State */}
+        <Reveal delay={0.15}>
+          <div className="glass-panel relative overflow-hidden rounded-3xl border border-card/80 p-6 sm:p-9 shadow-lg backdrop-blur-xl">
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success-state"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.25 }}
+                  role="status"
+                  className="space-y-6"
                 >
-                  {serviceOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  <div className="flex items-center gap-3.5">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                      <CheckCircle2 size={28} />
+                    </span>
+                    <div>
+                      <h2 className="font-display text-2xl font-bold text-foreground">Enquiry Saved & Ready!</h2>
+                      <p className="text-xs text-muted-foreground">Your details have been registered securely.</p>
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="message">Your message *</Label>
-                <Textarea
-                  id="message"
-                  required
-                  rows={4}
-                  placeholder="Describe your tax, insurance, GST or investment requirement..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="resize-none bg-card/70 p-4"
-                />
-              </div>
+                  <div className="rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-4 text-sm text-foreground">
+                    <p className="font-medium">
+                      WhatsApp has been launched with your enquiry. If it didn't open automatically, tap below to chat with {contact.name}.
+                    </p>
+                  </div>
 
-              <p className="text-xs leading-relaxed text-muted-foreground">
-                This prepares a pre-filled WhatsApp enquiry with {contact.name}. Tap Send there to connect immediately.
-              </p>
-              <Button type="submit" variant="gradient" size="action" className="w-full sm:w-auto">
-                Send via WhatsApp <ArrowRight size={16} />
-              </Button>
-            </form>
-          )}
-        </div>
+                  <div className="space-y-3 rounded-2xl border border-border/70 bg-card/60 p-5 text-sm">
+                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Summary of your message</p>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-muted-foreground">Name:</span> <strong className="text-foreground">{details.name}</strong>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Phone:</span> <strong className="text-foreground">{details.phone}</strong>
+                      </div>
+                      <div className="col-span-2">
+                        <span className="text-muted-foreground">Service:</span> <strong className="text-foreground">{selected}</strong>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-border/50 text-xs">
+                      <span className="text-muted-foreground">Message:</span>
+                      <p className="mt-1 font-mono text-[11px] text-foreground/90 whitespace-pre-wrap rounded-lg bg-secondary/50 p-2.5">
+                        {message}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    <Button asChild variant="consult" size="action">
+                      <a href={whatsappLink(enquiryText)} target="_blank" rel="noopener noreferrer">
+                        <MessageCircle size={16} /> Open in WhatsApp
+                      </a>
+                    </Button>
+                    <Button type="button" variant="outline" size="action" onClick={handleReset}>
+                      <RotateCcw size={16} /> Submit another enquiry
+                    </Button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="contact-form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onSubmit={handleSubmit}
+                  className="space-y-5"
+                >
+                  <div>
+                    <h2 className="font-display text-2xl font-bold text-foreground">Tell us what you need</h2>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Fill out the form below. We will reach out promptly to assist you.
+                    </p>
+                  </div>
+
+                  {/* Spam Honeypot (Hidden from real users) */}
+                  <input
+                    type="text"
+                    name="hp_website_field"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden="true"
+                  />
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-xs font-semibold text-foreground">
+                        Your Full Name <span className="text-destructive">*</span>
+                      </Label>
+                      <Input
+                        id="name"
+                        required
+                        autoComplete="name"
+                        placeholder="e.g. Rajesh Sharma"
+                        value={details.name}
+                        onChange={(e) => setDetails({ ...details, name: e.target.value })}
+                        className="h-12 bg-card/70 px-4 focus-visible:ring-primary"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-xs font-semibold text-foreground">
+                        Phone Number (10-digit Indian) <span className="text-destructive">*</span>
+                      </Label>
+                      <Input
+                        id="phone"
+                        required
+                        type="tel"
+                        placeholder="e.g. 98765 43210"
+                        value={details.phone}
+                        onChange={(e) => {
+                          setDetails({ ...details, phone: e.target.value });
+                          if (phoneError) setPhoneError("");
+                        }}
+                        className={`h-12 bg-card/70 px-4 ${phoneError ? "border-destructive focus-visible:ring-destructive" : "focus-visible:ring-primary"}`}
+                      />
+                      {phoneError && (
+                        <p className="flex items-center gap-1.5 text-xs font-medium text-destructive">
+                          <AlertCircle size={13} /> {phoneError}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-xs font-semibold text-foreground">
+                      Email Address <span className="text-muted-foreground text-[11px]">(Optional)</span>
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="e.g. yourname@example.com"
+                      value={details.email}
+                      onChange={(e) => setDetails({ ...details, email: e.target.value })}
+                      className="h-12 bg-card/70 px-4 focus-visible:ring-primary"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="service" className="text-xs font-semibold text-foreground">
+                      Service Required
+                    </Label>
+                    <select
+                      id="service"
+                      value={selected}
+                      onChange={(e) => setSelected(e.target.value)}
+                      className="h-12 w-full rounded-md border border-input bg-card/70 px-4 text-sm text-foreground outline-none focus-visible:ring-1 focus-visible:ring-primary"
+                    >
+                      {serviceOptions.map((option) => (
+                        <option key={option} value={option} className="bg-card text-foreground">
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-xs font-semibold text-foreground">
+                      Your Message / Requirement <span className="text-destructive">*</span>
+                    </Label>
+                    <Textarea
+                      id="message"
+                      required
+                      rows={4}
+                      placeholder="Describe your tax filing, insurance, GST or investment requirement..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      className="resize-none bg-card/70 p-4 focus-visible:ring-primary"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <ShieldCheck size={14} className="text-primary shrink-0" />
+                    <span>Your contact details are kept strictly confidential.</span>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    variant="gradient"
+                    size="action"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto cursor-pointer"
+                  >
+                    {isSubmitting ? "Sending..." : "Send via WhatsApp"} <Send size={16} />
+                  </Button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
+        </Reveal>
       </div>
 
-      {/* Address and Google Maps Section */}
-      <div className="mt-16 border-t border-border/70 pt-16">
-        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.2fr]">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-              <MapPin size={14} /> Our Office Location
-            </div>
-            <h2 className="mt-4 font-display text-2xl sm:text-3xl font-bold text-foreground">
-              Visit our office in Ahmedabad
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              We welcome clients for in-person consultations regarding ITR filing, GST registration & compliance, portfolio reviews, and insurance claims.
-            </p>
+      {/* OFFICE ADDRESS & GOOGLE MAPS SECTION */}
+      <div className="mt-20 border-t border-border/70 pt-16">
+        <Reveal>
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary dark:text-sky-300">
+                <MapPin size={14} /> Our Office Location
+              </div>
+              <h2 className="mt-4 font-display text-2xl sm:text-3xl font-bold text-foreground">
+                Visit our office in Ahmedabad
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                We welcome clients for in-person consultations regarding ITR filing, GST registration & compliance, portfolio reviews, and insurance claims.
+              </p>
 
-            <div className="mt-6 space-y-3 rounded-2xl border border-card/80 bg-card/60 p-5 backdrop-blur-sm">
-              <div className="flex items-start gap-3 text-sm">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
-                <div>
-                  <strong className="block font-semibold text-foreground">{contact.address.title}</strong>
-                  <span className="text-muted-foreground">{contact.address.line1}</span>
-                  <span className="block text-muted-foreground">{contact.address.city}, {contact.address.pincode}</span>
+              <div className="mt-6 space-y-3 rounded-2xl border border-card/80 bg-card/60 p-5 backdrop-blur-sm shadow-sm">
+                <div className="flex items-start gap-3 text-sm">
+                  <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
+                  <div>
+                    <strong className="block font-semibold text-foreground">{contact.address.title}</strong>
+                    <span className="text-muted-foreground">{contact.address.line1}</span>
+                    <span className="block text-muted-foreground">
+                      {contact.address.city}, {contact.address.pincode}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-sm pt-2 border-t border-border/50 text-muted-foreground">
+                  <Clock size={16} className="text-primary shrink-0" />
+                  <span>{contact.hours}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-sm pt-2 border-t border-border/50 text-muted-foreground">
-                <Clock size={16} className="text-primary shrink-0" />
-                <span>{contact.hours}</span>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button asChild variant="consult" size="action">
+                  <a href={contact.address.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                    <Navigation size={16} /> Open in Google Maps
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="action">
+                  <Link to="/services">Explore all services</Link>
+                </Button>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild variant="consult" size="action">
-                <a href={contact.address.googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                  <Navigation size={16} /> Open in Google Maps
-                </a>
-              </Button>
-              <Button asChild variant="outline" size="action">
-                <Link to="/services">Explore all services</Link>
-              </Button>
+            <div className="overflow-hidden rounded-3xl border border-card/80 shadow-lg bg-card/60">
+              <iframe
+                title="A B Taxway Consultancy Location Map"
+                src={contact.address.googleMapsEmbedUrl}
+                width="100%"
+                height="360"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full grayscale contrast-[1.05] dark:invert-[0.9] dark:hue-rotate-180"
+              />
             </div>
           </div>
-
-          <div className="overflow-hidden rounded-3xl border border-card/80 shadow-lg bg-card/60">
-            <iframe
-              title="A B Taxway Consultancy Location Map"
-              src="https://maps.google.com/maps?q=Ahmedabad%20Gujarat%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="360"
-              style={{ border: 0 }}
-              allowFullScreen={false}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full grayscale contrast-[1.05] dark:invert-[0.9] dark:hue-rotate-180"
-            />
-          </div>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

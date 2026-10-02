@@ -79,7 +79,7 @@ function Cover() {
 }
 
 export function QuickTools() {
-  return <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+  return <section id="calculators" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-20 sm:px-8">
     <Reveal><p className="text-xs font-bold uppercase tracking-wider text-primary">Quick tools</p><h2 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">Run the numbers in seconds.</h2></Reveal>
     <Reveal delay={0.1} className="glass-panel mt-8 rounded-3xl border border-card/80 p-5 sm:p-8">
       <Tabs defaultValue="sip">

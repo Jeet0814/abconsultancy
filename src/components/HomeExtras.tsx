@@ -55,7 +55,7 @@ export function DatesAndChecklist() {
   const [today, setToday] = useState<string | null>(null);
   useEffect(() => setToday(new Date().toISOString().slice(0, 10)), []);
   const upcoming = keyDates.filter(d => !today || d.date >= today).slice(0, 5);
-  return <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-20 sm:px-8 lg:grid-cols-[1fr_1.2fr]">
+  return <section id="compliance" className="mx-auto grid max-w-7xl scroll-mt-24 gap-6 px-5 pb-20 sm:px-8 lg:grid-cols-[1fr_1.2fr]">
     <Reveal className="glass-panel rounded-3xl border border-card/80 p-6 sm:p-8">
       <div className="flex items-center gap-3"><span className="grid size-11 place-items-center rounded-xl bg-secondary text-primary"><CalendarDays size={21} /></span><div><h2 className="font-display text-xl font-bold text-foreground">Key dates</h2><p className="text-xs text-muted-foreground">Upcoming ITR & GST deadlines</p></div></div>
       <ul className="mt-6 space-y-2.5">
