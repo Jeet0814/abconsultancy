@@ -20,6 +20,9 @@ const buttonVariants = cva(
         ink: "bg-foreground text-background shadow-md hover:bg-foreground/90",
         glass: "border border-card/80 bg-glass text-foreground backdrop-blur-md hover:bg-glass-strong",
         light: "bg-card text-brand-deep shadow-md hover:bg-card/90",
+        gradient: "brand-gradient text-primary-foreground shadow-md hover:shadow-lift hover:brightness-110 transition-all",
+        whatsapp: "bg-whatsapp text-primary-foreground shadow-md hover:brightness-110",
+        "outline-light": "border-2 border-primary-foreground/70 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-brand-deep",
       },
       size: {
         default: "h-9 px-4 py-2",
