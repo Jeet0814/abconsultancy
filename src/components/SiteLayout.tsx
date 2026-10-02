@@ -19,7 +19,7 @@ function Brand({ scrolled = false }: { scrolled?: boolean }) {
   return (
     <Link
       to="/"
-      aria-label="A B Taxway Consultancy home"
+      aria-label="A B Taxway Consultancy - Helping Build The Wealthy Life"
       className="group flex min-w-0 items-center gap-3 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-transform duration-200 hover:scale-[1.02]"
     >
       <img
@@ -31,20 +31,19 @@ function Brand({ scrolled = false }: { scrolled?: boolean }) {
       />
       <span className="min-w-0 leading-tight">
         <span
-          className={cn(
-            "block font-display text-base sm:text-lg font-bold tracking-tight transition-colors duration-300",
-            scrolled ? "text-foreground" : "text-foreground"
-          )}
+          className="block font-display text-base sm:text-lg font-bold tracking-tight text-foreground"
         >
           A B Taxway
         </span>
         <span
-          className={cn(
-            "block font-mono text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300",
-            scrolled ? "text-muted-foreground" : "text-muted-foreground"
-          )}
+          className="block font-mono text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground"
         >
           CONSULTANCY
+        </span>
+        <span
+          className="hidden xs:block text-[9px] sm:text-[10px] font-medium tracking-wide text-primary dark:text-sky-300 -mt-0.5"
+        >
+          Helping Build The Wealthy Life
         </span>
       </span>
     </Link>
@@ -409,7 +408,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div>
             <Brand scrolled={true} />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Insurance, investments, income tax and GST guidance from Anilkumarsingh Bhadauria — since 2004.
+              Insurance, investments, income tax and GST guidance from Anilkumarsingh Bhadauria — <span className="font-semibold text-foreground">Helping Build The Wealthy Life</span> since 2004.
             </p>
           </div>
           <div>

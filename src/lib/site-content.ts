@@ -53,6 +53,13 @@ export const services = [
   },
 ] as const;
 
+export const brand = {
+  name: "A B Taxway",
+  fullName: "A B Taxway Consultancy",
+  tagline: "Helping Build The Wealthy Life",
+  since: 2004,
+} as const;
+
 export const contact = {
   name: "Anilkumarsingh Bhadauria",
   title: "Founder & Financial Advisor",

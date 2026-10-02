@@ -11,10 +11,10 @@ import officeImage from "@/assets/advisory-office.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "A B Taxway Consultancy | Insurance, Investment, ITR & GST" },
-    { name: "description", content: "Insurance, investment, income tax return and GST consultancy from A B Taxway Consultancy. Free calculators, key dates and expert guidance since 2004." },
-    { property: "og:title", content: "A B Taxway Consultancy | Insurance, Investment, ITR & GST" },
-    { property: "og:description", content: "Practical guidance for insurance, investments, income tax returns and GST — since 2004." },
+    { title: "A B Taxway Consultancy | Helping Build The Wealthy Life" },
+    { name: "description", content: "Helping Build The Wealthy Life — Insurance, investment, income tax return and GST consultancy from A B Taxway Consultancy. Free calculators, key dates and expert guidance since 2004." },
+    { property: "og:title", content: "A B Taxway Consultancy | Helping Build The Wealthy Life" },
+    { property: "og:description", content: "Practical guidance for insurance, investments, income tax returns and GST — Helping Build The Wealthy Life since 2004." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -50,9 +50,9 @@ function Index() {
         <div aria-hidden className="orb bottom-[5%] right-[10%] size-72 bg-accent/25 [animation-delay:-4s]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:py-20">
           <div className="lg:col-span-7">
-            <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-strong inline-flex items-center gap-2 rounded-full border border-card px-4 py-2 text-xs font-bold text-primary dark:text-sky-300 shadow-sm"><span className="relative flex size-2"><span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60" /><span className="relative size-2 rounded-full bg-primary" /></span> INSURANCE · INVESTMENT · TAX</motion.span>
+            <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-strong inline-flex items-center gap-2 rounded-full border border-card px-4 py-2 text-xs font-bold text-primary dark:text-sky-300 shadow-sm"><span className="relative flex size-2"><span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60" /><span className="relative size-2 rounded-full bg-primary" /></span> HELPING BUILD THE WEALTHY LIFE · SINCE 2004</motion.span>
             <Headline />
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 max-w-[49ch] text-base leading-relaxed text-foreground/90 dark:text-slate-200 font-normal">Insurance, investments, income tax returns and GST—thoughtful guidance for your finances, all in one place.</motion.p>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 max-w-[49ch] text-base leading-relaxed text-foreground/90 dark:text-slate-200 font-normal">Insurance, investments, income tax returns and GST—thoughtful guidance for your finances, helping build the wealthy life you deserve.</motion.p>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="gradient" size="action" className="group shine"><Link to="/contact">Start a conversation <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></Link></Button>
               <Button asChild variant="glass" size="action"><Link to="/services">Explore services <ArrowRight /></Link></Button>

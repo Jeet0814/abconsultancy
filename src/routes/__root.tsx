@@ -107,7 +107,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}` }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": ["LocalBusiness", "FinancialService"], name: "A B Taxway Consultancy", founder: { "@type": "Person", name: "Anilkumarsingh Bhadauria" }, foundingDate: "2004", telephone: "+91-9426844926", areaServed: "IN", description: "Insurance, investment, income tax return and GST consultancy." }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": ["LocalBusiness", "FinancialService"], name: "A B Taxway Consultancy", slogan: "Helping Build The Wealthy Life", founder: { "@type": "Person", name: "Anilkumarsingh Bhadauria" }, foundingDate: "2004", telephone: "+91-9426844926", areaServed: "IN", description: "Insurance, investment, income tax return and GST consultancy — Helping Build The Wealthy Life." }) }} />
       </head>
       <body>
         {children}

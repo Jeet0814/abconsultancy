@@ -5,10 +5,10 @@ import officeImage from "@/assets/advisory-office.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [
-    { title: "About Us | A B Taxway Consultancy" },
-    { name: "description", content: "Learn about A B Taxway Consultancy's approach to insurance, investment, ITR and GST guidance." },
-    { property: "og:title", content: "About Us | A B Taxway Consultancy" },
-    { property: "og:description", content: "Clear conversations and practical guidance for your financial and tax decisions." },
+    { title: "About Us | A B Taxway Consultancy — Helping Build The Wealthy Life" },
+    { name: "description", content: "Learn about A B Taxway Consultancy's approach to insurance, investment, ITR and GST guidance. Helping Build The Wealthy Life since 2004." },
+    { property: "og:title", content: "About Us | A B Taxway Consultancy — Helping Build The Wealthy Life" },
+    { property: "og:description", content: "Clear conversations and practical guidance for your financial and tax decisions — Helping Build The Wealthy Life." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
   ] }), component: AboutPage,
 });
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return <>
     <section className="mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 pt-20 sm:px-8 md:grid-cols-2 md:gap-16 md:pt-24">
-      <div><p className="text-xs font-bold uppercase text-primary">About A B Taxway</p><h1 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground sm:text-6xl">Good guidance starts with <span className="brand-text">a clear conversation.</span></h1><p className="mt-6 max-w-xl leading-relaxed text-muted-foreground">Financial decisions and tax obligations are easier to navigate when the details are explained clearly. A B Taxway Consultancy is led by Anilkumarsingh Bhadauria, who has been working in this field since 2004, bringing insurance, investment, income tax and GST conversations together in one place.</p><div className="mt-8 flex flex-wrap items-center gap-3"><Button asChild variant="consult" size="action"><Link to="/contact">Let's talk <ArrowRight /></Link></Button><span className="glass-strong inline-flex items-center gap-2 rounded-lg border border-card/80 px-4 py-2.5 text-sm font-semibold text-brand-deep"><strong className="font-display text-base">Since 2004</strong><span className="text-muted-foreground">in the field</span></span></div></div>
+      <div><p className="text-xs font-bold uppercase text-primary">About A B Taxway · Helping Build The Wealthy Life</p><h1 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground sm:text-6xl">Good guidance starts with <span className="brand-text">a clear conversation.</span></h1><p className="mt-6 max-w-xl leading-relaxed text-muted-foreground">Financial decisions and tax obligations are easier to navigate when the details are explained clearly. A B Taxway Consultancy is led by Anilkumarsingh Bhadauria, who has been working in this field since 2004 with a single mission: <strong>Helping Build The Wealthy Life</strong> for every family and business we serve.</p><div className="mt-8 flex flex-wrap items-center gap-3"><Button asChild variant="consult" size="action"><Link to="/contact">Let's talk <ArrowRight /></Link></Button><span className="glass-strong inline-flex items-center gap-2 rounded-lg border border-card/80 px-4 py-2.5 text-sm font-semibold text-brand-deep"><strong className="font-display text-base">Since 2004</strong><span className="text-muted-foreground">in the field</span></span></div></div>
       <img src={officeImage} alt="Organised advisory workspace with documents and natural light" width={1600} height={900} loading="lazy" className="aspect-[4/3] w-full rounded-xl object-cover object-right shadow-xl" />
     </section>
     <section className="border-y border-border bg-card/40"><div className="mx-auto max-w-7xl px-5 py-16 sm:px-8"><p className="text-xs font-bold uppercase text-primary">Our approach</p><h2 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">Simple steps. Considered decisions.</h2><div className="mt-9 grid gap-4 md:grid-cols-3">{[
