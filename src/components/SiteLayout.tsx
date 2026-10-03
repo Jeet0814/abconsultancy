@@ -19,30 +19,24 @@ function Brand({ scrolled = false }: { scrolled?: boolean }) {
   return (
     <Link
       to="/"
-      aria-label="A B Taxway Consultancy - Helping Build The Wealthy Life"
-      className="group flex min-w-0 items-center gap-3 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-transform duration-200 hover:scale-[1.02]"
+      aria-label="A B Taxway Consultancy - Helping Build The Wealthy Life - Since 2004"
+      className="group flex min-w-0 items-center gap-2.5 sm:gap-3 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-transform duration-200 hover:scale-[1.02]"
     >
       <img
         src="/ab-logo.jpg"
-        alt="A B Taxway logo"
+        alt="A B Taxway Consultancy logo"
         width={44}
         height={44}
-        className="size-11 shrink-0 rounded-xl object-contain bg-white p-0.5 shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition-shadow duration-300 group-hover:shadow-md"
+        className="size-10 sm:size-11 shrink-0 rounded-xl object-contain bg-white p-0.5 shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition-shadow duration-300 group-hover:shadow-md"
       />
-      <span className="min-w-0 leading-tight">
-        <span
-          className="block font-display text-base sm:text-lg font-bold tracking-tight text-foreground"
-        >
-          A B Taxway
+      <span className="min-w-0 flex flex-col justify-center leading-none">
+        <span className="block whitespace-nowrap font-display text-sm sm:text-base md:text-lg font-bold tracking-tight text-foreground">
+          A B Taxway Consultancy
         </span>
-        <span
-          className="block font-mono text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground"
-        >
-          CONSULTANCY
+        <span className="block text-right text-[8px] sm:text-[9px] font-semibold font-sans text-muted-foreground tracking-wider uppercase -mt-0.5 mb-0.5">
+          SINCE 2004
         </span>
-        <span
-          className="block text-[9px] sm:text-[10px] font-medium tracking-wide text-primary dark:text-sky-300"
-        >
+        <span className="block text-[9px] sm:text-[10px] md:text-[10.5px] font-medium tracking-wide text-primary dark:text-sky-300 whitespace-nowrap">
           Helping Build The Wealthy Life
         </span>
       </span>

@@ -8,7 +8,7 @@
 
 export const siteConfig = {
   brand: {
-    name: "A B Taxway",
+    name: "A B Taxway Consultancy",
     fullName: "A B Taxway Consultancy",
     tagline: "Helping Build The Wealthy Life",
     since: 2004,
@@ -20,7 +20,7 @@ export const siteConfig = {
     phoneDisplay: "+91 94268 44926",
     tel: "+919426844926",
     whatsapp: "919426844926",
-    email: "abtaxway@gmail.com",
+    email: "abconsultancynvs@gmail.com",
     hours: "Monday – Saturday: 10:00 AM – 7:00 PM",
     address: {
       title: "A B Taxway Consultancy",

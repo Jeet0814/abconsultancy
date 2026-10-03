@@ -301,7 +301,7 @@ function ServiceSection({ service, index }: { service: ServiceDetail; index: num
           <div>
             <Link
               to={service.calculator.to}
-              hash={service.calculator.hash}
+              {...(service.calculator.hash ? { hash: service.calculator.hash } : {})}
               className="font-display text-sm font-bold text-foreground hover:text-primary transition-colors flex items-center gap-1"
             >
               <span>{service.calculator.label}</span>
