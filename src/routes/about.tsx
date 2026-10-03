@@ -28,7 +28,7 @@ export const Route = createFileRoute("/about")({
       { title: "About Us | A B Taxway Consultancy — Helping Build The Wealthy Life" },
       {
         name: "description",
-        content: `Learn about A B Taxway Consultancy and founder Anilkumarsingh Bhadauria. Guiding families and businesses across insurance, investments, ITR, and GST in Ahmedabad since 2004 with our core mission: Helping Build The Wealthy Life.`,
+        content: `Learn about A B Taxway Consultancy and founder Anilkumarsingh Bhadauria. Guiding families and businesses across insurance, investments, ITR, and GST in Navsari and Gujarat since 2004 with our core mission: Helping Build The Wealthy Life.`,
       },
       { property: "og:title", content: "About Us | A B Taxway Consultancy — Helping Build The Wealthy Life" },
       {
@@ -92,7 +92,7 @@ export function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-black/40 p-3.5 backdrop-blur-md border border-white/10 text-white">
               <p className="text-xs font-semibold">{brand.fullName} Office Desk</p>
-              <p className="text-[11px] text-white/80">Ahmedabad, Gujarat • Professional Financial & Tax Consulting</p>
+              <p className="text-[11px] text-white/80">Navsari, Gujarat • Professional Financial & Tax Consulting</p>
             </div>
           </div>
         </Reveal>

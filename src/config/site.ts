@@ -24,12 +24,12 @@ export const siteConfig = {
     hours: "Monday – Saturday: 10:00 AM – 7:00 PM",
     address: {
       title: "A B Taxway Consultancy",
-      line1: "Office No. 12, Commercial Plaza, Main Market",
-      city: "Ahmedabad, Gujarat",
-      pincode: "380001",
-      full: "Office No. 12, Commercial Plaza, Main Market, Ahmedabad, Gujarat 380001, India",
-      googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Office+No.+12+Commercial+Plaza+Main+Market+Ahmedabad+Gujarat+380001",
-      googleMapsEmbedUrl: "https://maps.google.com/maps?q=Office%20No.%2012,%20Commercial%20Plaza,%20Main%20Market,%20Ahmedabad,%20Gujarat%20380001&t=&z=14&ie=UTF8&iwloc=&output=embed",
+      line1: "B-3, Surbhi Society, Opp. Sentosha Residency",
+      city: "Ramnagar-2, Vijalpore, Navsari, Gujarat",
+      pincode: "396450",
+      full: "B-3, Surbhi Society, Opp. Sentosha Residency, Ramnagar-2, Vijalpore, Navsari, Gujarat 396450, India",
+      googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=B-3+Surbhi+Society+Opp+Sentosha+Residency+Ramnagar-2+Vijalpore+Navsari+Gujarat+396450",
+      googleMapsEmbedUrl: "https://maps.google.com/maps?q=B-3%20Surbhi%20Society,%20Opp.%20Sentosha%20Residency,%20Ramnagar-2,%20Vijalpore,%20Navsari,%20Gujarat%20396450&t=&z=15&ie=UTF8&iwloc=&output=embed",
     },
   },
 
@@ -38,7 +38,7 @@ export const siteConfig = {
     role: "Founder & Principal Advisor",
     experienceYears: 22,
     qualifications: "Financial Advisor, Tax Practitioner & General Insurance Specialist",
-    bio: "Guiding individuals, families, and business owners across Ahmedabad and India since 2004. Dedicated to transparent, ethical, and customized financial solutions with our guiding motto: Helping Build The Wealthy Life.",
+    bio: "Guiding individuals, families, and business owners across Navsari, Gujarat, and India since 2004. Dedicated to transparent, ethical, and customized financial solutions with our guiding motto: Helping Build The Wealthy Life.",
     /**
      * Founder Photo Slot:
      * Place your real photo in `public/founder.jpg` or `src/assets/founder.jpg` and set the path below.
@@ -80,7 +80,7 @@ export const siteConfig = {
     {
       year: "2004",
       title: "Inception of Advisory Practice",
-      description: "Founded by Anilkumarsingh Bhadauria with a mission to deliver transparent, client-first life and general insurance advisory in Ahmedabad.",
+      description: "Founded by Anilkumarsingh Bhadauria with a mission to deliver transparent, client-first life and general insurance advisory in Navsari and Gujarat.",
     },
     {
       year: "2010",

@@ -47,7 +47,7 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact | A B Taxway Consultancy — Helping Build The Wealthy Life" },
       {
         name: "description",
-        content: `Get in touch with Anilkumarsingh Bhadauria at A B Taxway Consultancy for insurance, investment, income tax return, and GST services. Visit our Ahmedabad office or connect directly via WhatsApp and phone.`,
+        content: `Get in touch with Anilkumarsingh Bhadauria at A B Taxway Consultancy for insurance, investment, income tax return, and GST services. Visit our Navsari office or connect directly via WhatsApp and phone.`,
       },
       { property: "og:title", content: "Contact | A B Taxway Consultancy" },
       {
@@ -450,7 +450,7 @@ function ContactPage() {
                 <MapPin size={14} /> Our Office Location
               </div>
               <h2 className="mt-4 font-display text-2xl sm:text-3xl font-bold text-foreground">
-                Visit our office in Ahmedabad
+                Visit our office in Navsari
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 We welcome clients for in-person consultations regarding ITR filing, GST registration & compliance, portfolio reviews, and insurance claims.

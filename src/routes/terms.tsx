@@ -100,7 +100,7 @@ function TermsPage() {
             6. Governing Law & Jurisdiction
           </h2>
           <p>
-            These terms are governed by the laws of India. Any disputes arising in connection with our services shall be subject to the exclusive jurisdiction of the competent courts in Ahmedabad, Gujarat, India.
+            These terms are governed by the laws of India. Any disputes arising in connection with our services shall be subject to the exclusive jurisdiction of the competent courts in Navsari, Gujarat, India.
           </p>
         </section>
 
